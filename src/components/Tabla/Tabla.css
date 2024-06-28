@@ -47,7 +47,9 @@
   }
   
   .tabla-banco button {
-    font-size: 5px;
-    padding: 2px 6px;
+    font-size: 6px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border-color: #ddd 1px;
   }
 }
