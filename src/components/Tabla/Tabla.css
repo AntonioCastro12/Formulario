@@ -39,7 +39,7 @@
 
 @media (max-width: 768px) {
   .tabla-banco {
-    font-size: 14px; /* Reducir el tamaño de la fuente para pantallas más pequeñas */
+    font-size: 10px; /* Reducir el tamaño de la fuente para pantallas más pequeñas */
   }
   
   .tabla-banco th, .tabla-banco td {
@@ -47,7 +47,7 @@
   }
   
   .tabla-banco button {
-    font-size: 12px;
-    padding: 4px 8px;
+    font-size: 5px;
+    padding: 2px 6px;
   }
 }
