@@ -8,26 +8,8 @@ import './App.css';
 function App() {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
-  const [idCounter, setIdCounter] = useState(1);
 
-  // Cargar datos iniciales desde localStorage si están disponibles
   useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-    if (storedUsers.length > 0) {
-      setUsers(storedUsers);
-      setIdCounter(storedUsers.length + 1); // Ajustar el contador de IDs
-    } else {
-      fetchInitialData(); // Si no hay datos en localStorage, cargar desde la API
-    }
-  }, []);
-
-  // Guardar datos en localStorage cada vez que se modifique el estado `users`
-  useEffect(() => {
-    localStorage.setItem('users', JSON.stringify(users));
-  }, [users]);
-
-  // Función para cargar datos desde la API inicialmente
-  const fetchInitialData = () => {
     axios.get('https://jsonplaceholder.typicode.com/users')
       .then(response => {
         const translatedUsers = response.data.map((user, index) => ({
@@ -46,43 +28,44 @@ function App() {
           numeroInterior: user.address.geo.lng,
         }));
         setUsers(translatedUsers);
-        setIdCounter(translatedUsers.length + 1); // Ajustar el contador de IDs
       })
       .catch(error => {
         console.error('Error fetching the users data', error);
       });
-  };
+  }, []);
 
-  // Manejador para enviar el formulario
   const handleFormSubmit = (formData) => {
-    let updatedUsers = [];
     if (editingUser) {
-      updatedUsers = users.map(user =>
+      const updatedUsers = users.map(user =>
         user.id === editingUser.id ? { ...user, ...formData } : user
       );
+      setUsers(updatedUsers);
       setEditingUser(null);
     } else {
       const newUser = {
-        id: idCounter,
+        id: 1,
         ...formData
       };
-      updatedUsers = [newUser, ...users];
-      setIdCounter(idCounter + 1); // Incrementar el contador de IDs
+      const updatedUsers = [newUser, ...users].map((user, index) => ({
+        ...user,
+        id: index + 1
+      }));
+      setUsers(updatedUsers);
     }
-
-    setUsers(updatedUsers);
   };
 
-  // Manejador para editar usuario
   const handleEdit = (id) => {
     const userToEdit = users.find(user => user.id === id);
     setEditingUser(userToEdit);
   };
 
-  // Manejador para eliminar usuario
   const handleDelete = (id) => {
     const updatedUsers = users.filter(user => user.id !== id);
-    setUsers(updatedUsers);
+    const reindexedUsers = updatedUsers.map((user, index) => ({
+      ...user,
+      id: index + 1
+    }));
+    setUsers(reindexedUsers);
   };
 
   return (
