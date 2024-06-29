@@ -6,6 +6,7 @@ const Formulario = ({ onSubmit, editingUser }) => {
     nombre: '',
     primerApellido: '',
     segundoApellido: '',
+    email: '',
     estado: '',
     delegacion: '',
     colonia: '',
@@ -23,6 +24,7 @@ const Formulario = ({ onSubmit, editingUser }) => {
         nombre: editingUser.nombre || '',
         primerApellido: editingUser.primerApellido || '',
         segundoApellido: editingUser.segundoApellido || '',
+        email: editingUser.email || '',
         estado: editingUser.estado || '',
         delegacion: editingUser.delegacion || '',
         colonia: editingUser.colonia || '',
@@ -36,6 +38,7 @@ const Formulario = ({ onSubmit, editingUser }) => {
         nombre: '',
         primerApellido: '',
         segundoApellido: '',
+        email: '',
         estado: '',
         delegacion: '',
         colonia: '',
@@ -51,15 +54,13 @@ const Formulario = ({ onSubmit, editingUser }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const validateForm = () => {
     const newErrors = {};
     const lettersOnly = /^[A-Za-z\s]+$/;
-    const numbersOnly = /^\d{5}$/;
-
     if (!lettersOnly.test(formData.nombre)) {
       newErrors.nombre = 'El nombre solo debe contener letras';
     }
@@ -78,14 +79,28 @@ const Formulario = ({ onSubmit, editingUser }) => {
     if (!lettersOnly.test(formData.colonia)) {
       newErrors.colonia = 'La colonia solo debe contener letras';
     }
-    if (!lettersOnly.test(formData.delegacion)) {
-      newErrors.delegacion = 'La delegacion solo debe contener letras';
+
+    const curpRegex = /^([A-Z]{4}\d{6}[HM]{1}[A-Z]{5}[A-Z\d]{2})$/;
+    if (!curpRegex.test(formData.curp)) {
+      newErrors.curp = 'CURP inválida';
     }
+    const rfcRegex = /^([A-ZÑ&]{3,4})\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2]\d|3[0-1])[A-Z\d]{3}$/;
+    if (!rfcRegex.test(formData.rfc)) {
+      newErrors.rfc = 'RFC inválido';
+    }
+
+    const numbersOnly = /^\d{5}$/;
     if (!numbersOnly.test(formData.codigoPostal)) {
       newErrors.codigoPostal = 'El código postal debe ser un número de 5 dígitos';
     }
+
     if (!numbersOnly.test(formData.numeroExterior)) {
-      newErrors.numeroExterior = 'El número exterior debe ser un número de 5 dígitos';
+      newErrors.numeroExterior = 'El número exterior debe ser un número de hasta 5 dígitos';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Email inválido';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -106,8 +121,7 @@ const Formulario = ({ onSubmit, editingUser }) => {
   };
 
   return (
-    <form className="formulario-banco" onSubmit={handleSubmit}>
-      <h2>{editingUser ? 'Editar Usuario' : 'Registro de Usuario'}</h2>
+    <form onSubmit={handleSubmit} className="formulario-banco">
       <div>
         <label>Nombre:</label>
         <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
@@ -122,6 +136,11 @@ const Formulario = ({ onSubmit, editingUser }) => {
         <label>Segundo Apellido:</label>
         <input type="text" name="segundoApellido" value={formData.segundoApellido} onChange={handleChange} />
         {errors.segundoApellido && <span className="error">{errors.segundoApellido}</span>}
+      </div>
+      <div>
+        <label>Email:</label>
+        <input type="email" name="email" value={formData.email} onChange={handleChange} />
+        {errors.email && <span className="error">{errors.email}</span>}
       </div>
       <div>
         <label>Estado:</label>
@@ -158,7 +177,9 @@ const Formulario = ({ onSubmit, editingUser }) => {
         <input type="text" name="numeroExterior" value={formData.numeroExterior} onChange={handleChange} />
         {errors.numeroExterior && <span className="error">{errors.numeroExterior}</span>}
       </div>
-      <button type="submit">{editingUser ? 'Actualizar' : 'Enviar'}</button>
+      <div>
+        <button type="submit" className="btn-submit">Guardar</button>
+      </div>
     </form>
   );
 };

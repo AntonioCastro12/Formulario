@@ -1,65 +1,51 @@
 .formulario-banco {
   max-width: 600px;
-  margin: 20px auto;
+  margin: auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  background-color: #f0f0f0;
   border-radius: 8px;
-  background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
-}
-
-.formulario-banco h2 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .formulario-banco label {
   display: block;
   margin-bottom: 8px;
+  font-weight: bold;
 }
 
-.formulario-banco input[type="text"] {
-  width: calc(100% - 16px);
+.formulario-banco input[type="text"],
+.formulario-banco input[type="email"] {
+  width: 100%;
   padding: 8px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
+  font-size: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 1rem;
-}
-
-.formulario-banco input[type="text"]:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .formulario-banco .error {
   color: red;
-  font-size: 0.875rem;
-  margin-top: 4px;
+  font-size: 14px;
 }
 
-.formulario-banco button {
+.formulario-banco .btn-submit {
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
   padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-.formulario-banco button:hover {
+.formulario-banco .btn-submit:hover {
   background-color: #0056b3;
 }
 
-@media (max-width: 768px) {
+/* Responsividad básica */
+@media (max-width: 600px) {
   .formulario-banco {
-    padding: 15px;
-  }
-
-  .formulario-banco input[type="text"] {
     width: 100%;
+    padding: 10px;
   }
 }

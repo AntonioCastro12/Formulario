@@ -3,15 +3,16 @@ import './Tabla.css';
 
 const Tabla = ({ users, onEdit, onDelete }) => {
   return (
-    <div className="tabla-responsive">
+    <div className="tabla-container">
       <table className="tabla-banco">
         <thead>
           <tr>
-            <th>Id</th>
+            <th>ID</th>
             <th>Nombre</th>
-            <th>E-mail</th>
-            <th>Colonia</th>
+            <th>Primer Apellido</th>
+            <th>Estado</th>
             <th>Acciones</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -19,9 +20,11 @@ const Tabla = ({ users, onEdit, onDelete }) => {
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.nombre}</td>
-              <td>{user.userMail}</td>
-              <td>{user.colonia}</td>
+              <td>{user.primerApellido}</td>
+              <td>{user.estado}</td>
+
               <td>
+
                 <button className="btn-editar" onClick={() => onEdit(user.id)}>✏️ Editar</button>
                 <button className="btn-eliminar" onClick={() => onDelete(user.id)}>🗑️ Eliminar</button>
               </td>
