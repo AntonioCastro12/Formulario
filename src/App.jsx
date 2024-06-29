@@ -54,7 +54,6 @@ function App() {
   const handleEdit = (id) => {
     const userToEdit = users.find(user => user.id === id);
     setEditingUser(userToEdit);
-    console.log("Editing User:", userToEdit);
   };
 
   const handleDelete = (id) => {
@@ -67,7 +66,7 @@ function App() {
       <Formulario onSubmit={handleFormSubmit} editingUser={editingUser} />
       <h2>Usuarios</h2>
       <Tabla users={users} onEdit={handleEdit} onDelete={handleDelete} />
-      <Maps />
+      <Maps users={users} />
     </div>
   );
 }

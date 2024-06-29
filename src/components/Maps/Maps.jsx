@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import credentials from './credentials';
 
 const containerStyle = {
@@ -8,21 +8,25 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523
+  lat: 0, // Puedes ajustar el centro del mapa según sea necesario
+  lng: 0
 };
 
-const Maps = () => {
+const Maps = ({ users }) => {
   return (
-    <LoadScript
-      googleMapsApiKey={credentials.mapsKey}
-    >
+    <LoadScript googleMapsApiKey={credentials.mapsKey}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={2} // Zoom ajustado para ver todos los marcadores
       >
-        {/* Aquí puedes agregar marcadores, ventanas de información, etc. */}
+        {users.map(user => (
+          <Marker
+            key={user.id}
+            position={{ lat: parseFloat(user.numeroExterior), lng: parseFloat(user.numeroInterior) }}
+            title={user.nombre}
+          />
+        ))}
       </GoogleMap>
     </LoadScript>
   );
