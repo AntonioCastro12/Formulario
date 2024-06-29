@@ -3,6 +3,8 @@ import axios from 'axios';
 import Formulario from './components/Formulario/Formulario';
 import Tabla from './components/Tabla/Tabla';
 import './App.css';
+import Maps from './components/Maps/Maps';
+import credentials from './components/Maps/credentials';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -13,17 +15,17 @@ function App() {
       .then(response => {
         const translatedUsers = response.data.map(user => ({
           id: user.id,
-          nombre: user.name, // Traduciendo 'name' a 'nombre'
-          primerApellido: user.username, // No hay 'primerApellido' en los datos originales, así que usé 'username'
-          userMail: user.email, // Similar aquí, usé 'email' para 'userMail'
-          estado: user.address.city, // Usando 'city' para 'estado'
-          delegacion: user.address.street, // Usando 'street' para 'delegacion'
-          colonia: user.address.suite, // Usando 'suite' para 'colonia'
-          curp: '', // No hay 'curp' en los datos originales, así que lo dejo vacío
-          rfc: '', // No hay 'rfc' en los datos originales, así que lo dejo vacío
-          codigoPostal: user.address.zipcode, // Usando 'zipcode' para 'codigoPostal'
-          numeroExterior: user.address.geo.lat, // No hay 'numeroExterior' en los datos originales, así que usé 'lat'
-          numeroInterior: user.address.geo.lng, // No hay 'numeroInterior' en los datos originales, así que usé 'lng'
+          nombre: user.name,
+          primerApellido: user.username,
+          userMail: user.email,
+          estado: user.address.city,
+          delegacion: user.address.street,
+          colonia: user.address.suite,
+          curp: '',
+          rfc: '',
+          codigoPostal: user.address.zipcode,
+          numeroExterior: user.address.geo.lat,
+          numeroInterior: user.address.geo.lng,
         }));
         setUsers(translatedUsers);
       })
@@ -43,7 +45,7 @@ function App() {
       const newUser = {
         id: users.length + 1,
         ...formData,
-        userMail: formData.userMail // Asegúrate de incluir el correo electrónico aquí
+        userMail: formData.userMail
       };
       setUsers([...users, newUser]);
     }
@@ -65,6 +67,7 @@ function App() {
       <Formulario onSubmit={handleFormSubmit} editingUser={editingUser} />
       <h2>Usuarios</h2>
       <Tabla users={users} onEdit={handleEdit} onDelete={handleDelete} />
+      <Maps />
     </div>
   );
 }

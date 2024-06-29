@@ -1,0 +1,22 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  h1, h2 {
+    margin: 1rem 0;
+  }
+  
+  .Formulario, .Tabla {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 2rem;
+  }
+  
+  .Maps {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem 0;
+  }

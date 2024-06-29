@@ -1,51 +1,31 @@
-// import React, { useEffect, useState } from 'react';
-// import GoogleMapReact from 'google-map-react';
-// import './Mapa.css'; // Archivo de estilos para el mapa
+import React from "react";
+import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import credentials from './credentials';
 
-// const Mapa = () => {
-//   const [usuarios, setUsuarios] = useState([]);
+const containerStyle = {
+  width: '100%',
+  height: '400px'
+};
 
-//   useEffect(() => {
-//     // Función para obtener los usuarios del servicio API
-//     const fetchUsuarios = async () => {
-//       try {
-//         const response = await fetch('https://jsonplaceholder.typicode.com/users');
-//         if (!response.ok) {
-//           throw new Error('Error al obtener los usuarios');
-//         }
-//         const data = await response.json();
-//         setUsuarios(data);
-//       } catch (error) {
-//         console.error('Error:', error);
-//       }
-//     };
+const center = {
+  lat: -3.745,
+  lng: -38.523
+};
 
-//     fetchUsuarios();
-//   }, []);
+const Maps = () => {
+  return (
+    <LoadScript
+      googleMapsApiKey={credentials.mapsKey}
+    >
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+      >
+        {/* Aquí puedes agregar marcadores, ventanas de información, etc. */}
+      </GoogleMap>
+    </LoadScript>
+  );
+};
 
-//   return (
-//     <div className="mapa-container">
-//       <h2>Usuarios en el mapa</h2>
-//       <div style={{ height: '600px', width: '100%' }}>
-//         <GoogleMapReact
-//           bootstrapURLKeys={{ key: 'YOUR_GOOGLE_MAPS_API_KEY' }} // Reemplaza con tu clave API de Google Maps
-//           defaultCenter={{ lat: 0, lng: 0 }} // Centro inicial del mapa (latitud y longitud)
-//           defaultZoom={2} // Zoom inicial del mapa
-//         >
-//           {usuarios.map((usuario) => (
-//             <Marker
-//               key={usuario.id}
-//               lat={parseFloat(usuario.address.geo.lat)}
-//               lng={parseFloat(usuario.address.geo.lng)}
-//               text={usuario.name}
-//             />
-//           ))}
-//         </GoogleMapReact>
-//       </div>
-//     </div>
-//   );
-// };
-
-// const Marker = ({ text }) => <div className="marker">{text}</div>;
-
-// export default Mapa;
+export default Maps;
