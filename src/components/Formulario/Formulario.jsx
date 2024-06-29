@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Formulario.css';
 
 const Formulario = ({ onSubmit, editingUser }) => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     nombre: '',
     primerApellido: '',
     segundoApellido: '',
@@ -14,8 +14,9 @@ const Formulario = ({ onSubmit, editingUser }) => {
     rfc: '',
     codigoPostal: '',
     numeroExterior: '',
-  });
+  };
 
+  const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -34,19 +35,7 @@ const Formulario = ({ onSubmit, editingUser }) => {
         numeroExterior: editingUser.numeroExterior || '',
       });
     } else {
-      setFormData({
-        nombre: '',
-        primerApellido: '',
-        segundoApellido: '',
-        email: '',
-        estado: '',
-        delegacion: '',
-        colonia: '',
-        curp: '',
-        rfc: '',
-        codigoPostal: '',
-        numeroExterior: '',
-      });
+      setFormData(initialFormData);
     }
   }, [editingUser]);
 
@@ -115,6 +104,7 @@ const Formulario = ({ onSubmit, editingUser }) => {
     e.preventDefault();
     if (validateForm()) {
       onSubmit(formData);
+      setFormData(initialFormData); // Limpiar el formulario después de enviar los datos
     } else {
       alert('Existen campos por validar');
     }
