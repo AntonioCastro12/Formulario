@@ -1,22 +1,13 @@
-.App {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
+.map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; /* Añadiendo margen superior e inferior */
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    width: 100%; /* Asegurando que el mapa ocupe todo el ancho en pantallas pequeñas */
   }
-  
-  h1, h2 {
-    margin: 1rem 0;
-  }
-  
-  .Formulario, .Tabla {
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 2rem;
-  }
-  
-  .Maps {
-    width: 100%;
-    max-width: 800px;
-    margin: 2rem 0;
-  }
+}
+

@@ -2,22 +2,23 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Formulario from './components/Formulario/Formulario';
 import Tabla from './components/Tabla/Tabla';
-import './App.css';
 import Maps from './components/Maps/Maps';
-import credentials from './components/Maps/credentials';
+import './App.css';
 
 function App() {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
+  const [idCounter, setIdCounter] = useState(1);
 
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/users')
       .then(response => {
-        const translatedUsers = response.data.map(user => ({
-          id: user.id,
+        const translatedUsers = response.data.map((user, index) => ({
+          id: index + 1,
           nombre: user.name,
           primerApellido: user.username,
-          userMail: user.email,
+          segundoApellido: '', // No disponible en la API
+          email: user.email,
           estado: user.address.city,
           delegacion: user.address.street,
           colonia: user.address.suite,
@@ -43,11 +44,14 @@ function App() {
       setEditingUser(null);
     } else {
       const newUser = {
-        id: users.length + 1,
-        ...formData,
-        userMail: formData.userMail
+        id: 1,
+        ...formData
       };
-      setUsers([...users, newUser]);
+      const updatedUsers = [newUser, ...users].map((user, index) => ({
+        ...user,
+        id: index + 1
+      }));
+      setUsers(updatedUsers);
     }
   };
 
@@ -57,7 +61,12 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    setUsers(users.filter(user => user.id !== id));
+    const updatedUsers = users.filter(user => user.id !== id);
+    const reindexedUsers = updatedUsers.map((user, index) => ({
+      ...user,
+      id: index + 1
+    }));
+    setUsers(reindexedUsers);
   };
 
   return (
@@ -66,7 +75,9 @@ function App() {
       <Formulario onSubmit={handleFormSubmit} editingUser={editingUser} />
       <h2>Usuarios</h2>
       <Tabla users={users} onEdit={handleEdit} onDelete={handleDelete} />
-      <Maps users={users} />
+      <div className="Maps">
+        <Maps users={users} />
+      </div>
     </div>
   );
 }

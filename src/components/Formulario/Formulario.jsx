@@ -60,7 +60,7 @@ const Formulario = ({ onSubmit, editingUser }) => {
       newErrors.segundoApellido = 'El segundo apellido solo debe contener letras';
     }
     if (!lettersOnly.test(formData.estado)) {
-      newErrors.estado = 'El estado solo debe contener letras';
+      newErrors.estado = 'El estado solo debe contener letras, sin acentos';
     }
     if (!lettersOnly.test(formData.delegacion)) {
       newErrors.delegacion = 'La delegación solo debe contener letras';
