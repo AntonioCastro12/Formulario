@@ -1,14 +1,14 @@
 import React from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import credentials from './credentials';
-import './maps.css'; // Importando el archivo CSS para estilos adicionales
+import './maps.css';
 
 const containerStyle = {
   width: '100%',
   height: '400px',
-  border: '1px solid #ccc', // Añadiendo un borde para mejor visualización
-  borderRadius: '8px', // Añadiendo bordes redondeados
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' // Añadiendo sombra para un efecto de elevación
+  border: '1px solid #ccc', 
+  borderRadius: '8px', 
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' 
 };
 
 const getMapCenter = (users) => {
@@ -27,12 +27,12 @@ const Maps = ({ users }) => {
   const center = getMapCenter(users);
 
   return (
-    <div className="map-container"> {/* Envolviendo el mapa en un div para estilos adicionales */}
+    <div className="map-container"> 
       <LoadScript googleMapsApiKey={credentials.mapsKey}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={2} // Zoom ajustado para ver todos los marcadores
+          zoom={2} 
         >
           {users.map(user => {
             const lat = parseFloat(user.numeroExterior);

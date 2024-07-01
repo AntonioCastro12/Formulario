@@ -16,7 +16,7 @@ function App() {
           id: index + 1,
           nombre: user.name,
           primerApellido: user.username,
-          segundoApellido: '', // No disponible en la API
+          segundoApellido: '', 
           email: user.email,
           estado: user.address.city,
           delegacion: user.address.street,

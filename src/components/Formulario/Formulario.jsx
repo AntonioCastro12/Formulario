@@ -104,7 +104,7 @@ const Formulario = ({ onSubmit, editingUser }) => {
     e.preventDefault();
     if (validateForm()) {
       onSubmit(formData);
-      setFormData(initialFormData); // Limpiar el formulario después de enviar los datos
+      setFormData(initialFormData); 
     } else {
       alert('Existen campos por validar');
     }
