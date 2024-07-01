@@ -32,7 +32,7 @@ const Formulario = ({ onSubmit, editingUser }) => {
         curp: editingUser.curp || '',
         rfc: editingUser.rfc || '',
         codigoPostal: editingUser.codigoPostal || '',
-        numeroExterior: editingUser.numeroExterior || '',
+        // numeroExterior: editingUser.numeroExterior || '',
       });
     } else {
       setFormData(initialFormData);
